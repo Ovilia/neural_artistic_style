@@ -8,6 +8,42 @@ Implementation of [A Neural Algorithm of Artistic Style](http://arxiv.org/abs/15
  - [CUDArray](http://github.com/andersbll/cudarray) with [cuDNN](https://developer.nvidia.com/cudnn), CUDA-accelerated NumPy.
  - [Pretrained VGG 19 model](http://www.vlfeat.org/matconvnet/pretrained), choose *imagenet-vgg-verydeep-19*.
 
+### Install
+
+#### DeepPy
+
+- Download project at [DeepPy](http://github.com/andersbll/deeppy).
+- `$ cd deeppy`
+- `$ python setup.py install`
+
+#### CUDArray
+
+- Download project at [CUDArray](http://github.com/andersbll/cudarray).
+- `$ make`
+
+You may get `make: nvcc: No such file or directory` which means it cannot find `nvcc`. 
+
+- [Download cuda](https://developer.nvidia.com/cuda-downloads) and install for your system.
+- Export binary location to path. For Linux or Mac, it may be at `/usr/local/cuda/bin`.
+- `$make`
+
+Now, you may get the following error.
+```
+cudarray/numpy_backend/nnet/conv_bc01.c:250:10: fatal error: 'numpy/arrayobject.h' file not found #include "numpy/arrayobject.h"
+     ^
+1 error generated.
+error: command 'clang' failed with exit status 1
+```
+This is because numpy include directory is not found when building.
+
+- Copy numpy include directory to `/usr/local/include`. The location can be known by typing `import numpy; numpy.get_include()` in Python.
+- `$ make` now should work.
+- `$ make install`
+
+#### Pretrained VGG 19 model
+
+- [Download Pretrained VGG 19 model](http://www.vlfeat.org/matconvnet/pretrained/#downloading-the-pre-trained-models). Search `imagenet-vgg-verydeep-19` in this page and download `imagenet-vgg-verydeep-19.mat`.
+- Download this project and copy `imagenet-vgg-verydeep-19.mat` to the project directory.
 
 ### Examples
 Execute
